@@ -9,12 +9,9 @@ public class TaskList {
 	private List<Task> tasks;
 	
 	public TaskList() {
-		super();
 	}
 
-	public TaskList(int id, String name) {
-		super();
-		this.id = id;
+	public TaskList(String name) {
 		this.name = name;
 		this.tasks = new ArrayList<Task>();
 	}

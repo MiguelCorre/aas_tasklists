@@ -6,10 +6,10 @@ public class Task {
 	private String status;
 
 	public Task() {
-		super();
+            super();
 	}
 
-	public Task(int id, String description, String status) {
+	public Task(String description, String status) {
 		super();
 		this.id = id;
 		this.description = description;
