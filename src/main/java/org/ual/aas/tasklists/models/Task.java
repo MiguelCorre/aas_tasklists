@@ -1,17 +1,24 @@
 package org.ual.aas.tasklists.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class Task {
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy="increment")
 	private int id;
 	private String description;
-	private String status;
-
+	private String status; // doing, done
+	
 	public Task() {
-            super();
 	}
 
 	public Task(String description, String status) {
-		super();
-		this.id = id;
 		this.description = description;
 		this.status = status;
 	}
@@ -39,5 +46,4 @@ public class Task {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 }

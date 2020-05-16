@@ -3,9 +3,27 @@ package org.ual.aas.tasklists.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class TaskList {
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy="increment")
 	private int id;
 	private String name;
+	
+	@ElementCollection
+	@OneToMany(
+		    orphanRemoval = true,
+		    cascade = CascadeType.ALL)
 	private List<Task> tasks;
 	
 	public TaskList() {
@@ -39,6 +57,4 @@ public class TaskList {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
-	
 }
