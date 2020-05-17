@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.ual.aas.tasklists.models.Task;
 import org.ual.aas.tasklists.models.TaskList;
+import org.ual.aas.tasklists.views.CLI;
 
 public class App {
 
@@ -20,6 +21,8 @@ public class App {
     }
 
     public static void main(String[] args) {
+        CLI cli = new CLI();
+        cli.menuView();
         TaskList taskList = new TaskList("Sample Task List");
         taskList.getTasks().add(new Task("1st task", "doing"));
         taskList.getTasks().add(new Task("2nd task", "doing"));
