@@ -9,10 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Table(name="tasklists")
 public class TaskList {
 	@Id
 	@GeneratedValue(generator="increment")
@@ -20,8 +22,9 @@ public class TaskList {
 	private int id;
 	private String name;
 	
-	@ElementCollection
+	//@ElementCollection
 	@OneToMany(
+                    
 		    orphanRemoval = true,
 		    cascade = CascadeType.ALL)
 	private List<Task> tasks;
