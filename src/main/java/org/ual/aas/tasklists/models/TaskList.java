@@ -26,7 +26,8 @@ public class TaskList {
 	@OneToMany(
                     
 		    orphanRemoval = true,
-		    cascade = CascadeType.ALL)
+		    cascade = CascadeType.ALL,
+                    targetEntity = Task.class)
 	private List<Task> tasks;
 	
 	public TaskList() {

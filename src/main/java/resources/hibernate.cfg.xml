@@ -10,8 +10,8 @@
         <property name="connection.password">foobar</property>
         <property name="connection.pool_size">1</property>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
-        <property name="show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">none</property>      
+        <property name="show_sql">false</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>      
         <mapping class="org.ual.aas.tasklists.models.TaskList"/>
         <mapping class="org.ual.aas.tasklists.models.Task"/>
     </session-factory>

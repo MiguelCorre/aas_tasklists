@@ -1,10 +1,14 @@
-package org.ual.aas.tasklists.controllers;
+package org.ual.aas.tasklists;
 
+import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.criterion.CriteriaQuery;
 
 
 public class HibernateUtil {
@@ -36,6 +40,15 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
+//    private static <T> List<T> loadAllData(Class<T> type, Session session) {
+//        CriteriaBuilder builder = session.getCriteriaBuilder();
+//        CriteriaQuery<T> criteria;
+//        criteria = builder.createQuery(type);
+//        criteria.from(type);
+//        List<T> data = session.createQuery(criteria).getResultList();
+//        return data;
+//  }
+    
     public static void shutdown() {
         if (registry != null) {
             StandardServiceRegistryBuilder.destroy(registry);
