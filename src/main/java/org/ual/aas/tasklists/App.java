@@ -10,7 +10,7 @@ public class App {
         System.out.println(taskList.getName());
         for (Task task : taskList.getTasks()) {
             System.out.println(task.getDescription());
-            System.out.println("teu pai e feio");
+            
         }
     }
 
