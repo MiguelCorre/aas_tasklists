@@ -102,6 +102,7 @@ public class TaskListController {
             } else {
                 for(TaskList taskList : list) {
                 System.out.println(taskList.getName());
+                
                 }
             }
             
@@ -112,6 +113,7 @@ public class TaskListController {
             }
             e.printStackTrace();
         }
+        
     }
         
         public static void deleteTaskLists(int id) {

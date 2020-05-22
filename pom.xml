@@ -10,7 +10,7 @@
     <packaging>war</packaging>
     <version>1.0</version>
 
-    <name>tasklistts</name>
+    <name>tasklists</name>
     <url>http://localhost:8080/tasklists</url>
 
     <properties>
