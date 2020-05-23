@@ -98,7 +98,7 @@ public class RESTAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             //TaskListController controller = new TaskListController();
 		resp.setContentType("application/json");
-		
+		String[] splitsParam = req.getQueryString().split("=");
 		String[] splits = req.getRequestURI().split("/");
 		
                 
@@ -107,7 +107,7 @@ public class RESTAPI extends HttpServlet {
 		//["","tasklists","lists","4","67"]
 		
 		if(splits.length == 3) {// /lists/
-                    TaskListController.insertTaskLists("Testerino");
+                    TaskListController.insertTaskLists(splitsParam[1]);
                     PrintWriter writer = resp.getWriter();
                     writer.println("Foi inserido a lista.");
                     writer.close();
@@ -127,9 +127,9 @@ public class RESTAPI extends HttpServlet {
 			
 			// TODO: responder com o id da lista criada.
 		} else if(splits.length == 4) { // /lists/list_id/
-                    TaskController.insertTasks(parseInt(splits[3]), "Tarefa");
+                    TaskController.insertTasks(parseInt(splits[3]), splitsParam[1]);
                     PrintWriter writer2 = resp.getWriter();
-                        writer2.println("Foi adicionado " + splits[3]);
+                        writer2.println("Foi adicionado " + splitsParam[1]);
                         //System.out.println(bReader.toString());
                         writer2.close();
                     
@@ -158,8 +158,11 @@ public class RESTAPI extends HttpServlet {
         protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             resp.setContentType("application/json");
             String[] splits = req.getRequestURI().split("/");
+            String[] splitsParam = req.getQueryString().split("=");
             PrintWriter writer2 = resp.getWriter();
             writer2.println(splits[3]);
+            writer2.println(req.getRequestURI());
+            writer2.println(splitsParam[1]);
             writer2.close();
             
         }
