@@ -3,8 +3,13 @@ package org.ual.aas.tasklists.views;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import static java.lang.Integer.parseInt;
 import java.util.List;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonWriter;
 import javax.persistence.TypedQuery;
 
 import javax.servlet.ServletException;
@@ -28,8 +33,10 @@ public class RESTAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {       
         resp.setContentType("application/json");
+        int x = 0;
         Transaction transaction = null;
         String[] splits = req.getRequestURI().split("/");
+        JsonObjectBuilder jsonBuilder = Json.createObjectBuilder();
         if(splits.length == 3) {// /lists/ -----------------------------------------------------------------
             try ( Session session = HibernateUtil.getSessionFactory().openSession()) {
                 session.getSessionFactory().openSession();
@@ -47,11 +54,21 @@ public class RESTAPI extends HttpServlet {
                 } else {
                     for (TaskList taskList : list) {
                         System.out.println(taskList.getName());
+                        jsonBuilder.add("list"+x, taskList.getName());
                         writer.println(taskList.getName());
-
+                        x++;
                     }
+                    JsonObject empObj = jsonBuilder.build();
+                    writer.println(empObj.size());
+                    StringWriter strWtr = new StringWriter();
+                    JsonWriter jsonWtr = Json.createWriter(strWtr);
+                    jsonWtr.writeObject(empObj);
+                    writer.println(strWtr.toString());
+                    jsonWtr.close();
+                            
                     writer.close();
                 }
+                
                 transaction.commit();
 
             } catch (Exception e) {
