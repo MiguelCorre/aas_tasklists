@@ -33,6 +33,7 @@ public class RESTAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {       
         resp.setContentType("application/json");
+        TaskListController.getTaskListsL();
         int x = 0;
         Transaction transaction = null;
         String[] splits = req.getRequestURI().split("/");
@@ -77,7 +78,7 @@ public class RESTAPI extends HttpServlet {
                 }
                 e.printStackTrace();
             }
-        } else if (splits.length == 4) { // /lists/list_id/ --------------------------------------------------
+        } else if (splits.length == 4) { // /lists/list_id/ -------------------------------------------------- METER JSON
             try ( Session session = HibernateUtil.getSessionFactory().openSession()) {
                 // start a transaction
                 transaction = session.beginTransaction();
@@ -89,7 +90,7 @@ public class RESTAPI extends HttpServlet {
                 } else {                 
                     writer2.println("List " + taskList.getName() + ":");
                     for (Task task : taskList.getTasks()) {
-                        writer2.println(task.getDescription() + " " + task.getStatus());
+                        writer2.println(task.getDescription() + " " + task.getStatus()+ " ID: "+ task.getId());
                     }
                     writer2.close();
                 }
@@ -112,77 +113,102 @@ public class RESTAPI extends HttpServlet {
         
     }
     @Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            //TaskListController controller = new TaskListController();
-		resp.setContentType("application/json");
-		String[] splitsParam = req.getQueryString().split("=");
-		String[] splits = req.getRequestURI().split("/");
-		
-                
-		///tasklists/lists/4/67/",
-		//
-		//["","tasklists","lists","4","67"]
-		
-		if(splits.length == 3) {// /lists/
-                    TaskListController.insertTaskLists(splitsParam[1]);
-                    PrintWriter writer = resp.getWriter();
-                    writer.println("Foi inserido a lista.");
-                    writer.close();
-			// Ferramentas: javax.json ou gson
-			// JSON -> Strings -> Objetos -> Strings -> JSON
-			// TODO: Obter o nome da lista que está no json do request 
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //TaskListController controller = new TaskListController();
+        resp.setContentType("application/json");
+        String[] splitsParam = req.getQueryString().split("=");
+        String[] splits = req.getRequestURI().split("/");
+
+        ///tasklists/lists/4/67/",
+        //
+        //["","tasklists","lists","4","67"]
+        if (splits.length == 3) {// /lists/
+            TaskListController.insertTaskLists(splitsParam[1]);
+            PrintWriter writer = resp.getWriter();
+            writer.println("Foi inserido a lista.");
+            writer.close();
+            // Ferramentas: javax.json ou gson
+            // JSON -> Strings -> Objetos -> Strings -> JSON
+            // TODO: Obter o nome da lista que está no json do request 
 //			BufferedReader bReader = req.getReader();
 //			String listName = "" + bReader;
 //                        PrintWriter writer = resp.getWriter();
 //                        writer.println(bReader.toString());
 //                        //System.out.println(bReader.toString());
 //                        writer.close();
-                        
-			
-			// criar uma lista
-                        //TaskListController.insertTaskLists(listName);
-			
-			// TODO: responder com o id da lista criada.
-		} else if(splits.length == 4) { // /lists/list_id/
-                    TaskController.insertTasks(parseInt(splits[3]), splitsParam[1]);
-                    PrintWriter writer2 = resp.getWriter();
-                        writer2.println("Foi adicionado " + splitsParam[1]);
-                        //System.out.println(bReader.toString());
-                        writer2.close();
-                    
-                } else if(splits.length == 5) { // /lists/list_id/task_id/
-                    
-                } else {
-                    // ERRO.
-                }
+
+            // criar uma lista
+            //TaskListController.insertTaskLists(listName);
+            // TODO: responder com o id da lista criada.
+        } else if (splits.length == 4) { // /lists/list_id/
+            TaskController.insertTasks(parseInt(splits[3]), splitsParam[1]);
+            PrintWriter writer2 = resp.getWriter();
+            writer2.println("Foi adicionado " + splitsParam[1]);
+            //System.out.println(bReader.toString());
+            writer2.close();
+
+        } else if (splits.length == 5) { // /lists/list_id/task_id/
+            PrintWriter writer2 = resp.getWriter();
+            TaskController.updateStatusTasks(parseInt(splits[4]), splitsParam[1]);
+            writer2.println("Status alterado para " + splitsParam[1]);
+            writer2.close();
+        } else {
+            // ERRO.
+        }
 //		else if POST /lists/list_id/
 //		
 //		else if POST /lists/list_id/task_id/
 //		
 //		else
 //			404
-	}
-        
-        @Override
-        protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            session.getSessionFactory().close();
-                
-            }
-        }
-        
-        @Override
-        protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            resp.setContentType("application/json");
-            String[] splits = req.getRequestURI().split("/");
-            String[] splitsParam = req.getQueryString().split("=");
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        String[] splits = req.getRequestURI().split("/");
+        String[] splitsParam = req.getQueryString().split("=");
+
+        if (splits.length == 4) {
             PrintWriter writer2 = resp.getWriter();
-            writer2.println(splits[3]);
-            writer2.println(req.getRequestURI());
-            writer2.println(splitsParam[1]);
+            TaskListController.updateTaskLists(parseInt(splits[3]), splitsParam[1]);
+            writer2.println("Nome alterado para " + splitsParam[1]);
             writer2.close();
-            
+        } else if (splits.length == 5) {
+            PrintWriter writer2 = resp.getWriter();
+            TaskController.updateNameTasks(parseInt(splits[4]), splitsParam[1]);
+            writer2.println("Descrição alterada para " + splitsParam[1]);
+            writer2.close();
         }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        String[] splits = req.getRequestURI().split("/");
+
+        if (splits.length == 4) {
+            PrintWriter writer2 = resp.getWriter();
+            TaskListController.deleteTaskLists(parseInt(splits[3]));
+            writer2.println("Foi apagado a TaskList " + splits[3]);
+            writer2.close();
+        } else if (splits.length == 5) {
+            PrintWriter writer2 = resp.getWriter();
+            TaskController.deleteTasks(parseInt(splits[4]));
+            writer2.println("Foi apagado a Task " + splits[4]);
+            writer2.close();
+
+        }
+    }
+
+    @Override
+    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        try ( Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.getSessionFactory().close();
+
+        }
+    }
 
     // Para dados de exemplo
     private class Data {
