@@ -107,6 +107,7 @@ public class TaskListController {
             }
             
             transaction.commit();
+            session.getSessionFactory().close();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
