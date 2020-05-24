@@ -19,7 +19,7 @@ public class HibernateUtil {
         if (sessionFactory == null) {
             try {
                 // Create registry
-                registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+                registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build(); // É PRECISO MUDAR DIRECTORY NO POM PARA A DIRECTORY DO HIBERNATE.CFG.XML !
 
                 // Create MetadataSources
                 MetadataSources sources = new MetadataSources(registry);

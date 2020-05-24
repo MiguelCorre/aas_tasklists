@@ -68,7 +68,7 @@
 
     <build>
         <resources>
-            <resource>
+            <resource> 
                 <directory>C:\Users\Miguel HPC\Documents\NetBeansProjects\tasklists\src\main\java\resources</directory>
             </resource>
         </resources>

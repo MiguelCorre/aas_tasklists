@@ -12,7 +12,7 @@ import org.ual.aas.tasklists.models.TaskList;
 
 
 public class CLI {
-    
+    // CLASSE PARA TESTE DOS METODOS, DEVIDO A ESTAR A TRABALHAR COM O RESTAPI NAO FUNCIONA.
     public void menuView() {
           
         while(true) {
@@ -38,14 +38,14 @@ public class CLI {
                     switch (choice2) {
                         case 1:
                             System.out.println("=====================================================================");
-                            TaskListController.getTaskListsL();
+                            //TaskListController.getTaskListsL();
                             System.out.println("=====================================================================");
                             break;
                         case 2:
                             System.out.println("=====================================================================");
                             System.out.print("Qual o nome para a lista?: ");
                             String name = scanner.next();
-                            TaskListController.insertTaskLists(name);
+                            //TaskListController.insertTaskLists(name);
                             System.out.println("A lista " + name + " foi adicionada com sucesso.");
                             System.out.println("=====================================================================");
                             break;
@@ -70,26 +70,26 @@ public class CLI {
                         case 1:
                             System.out.print("Qual o id da lista que quer ver?: ");
                             int id = scanner.nextInt();
-                            TaskListController.getTaskLists(id);
+                            //TaskListController.getTaskLists(id);
                             break;
                         case 2:
                             System.out.print("Qual o id da lista que quer modificar?: ");
                             id = scanner.nextInt();
                             System.out.print("Qual o nome que quer por?: ");
                             String name = scanner.next();
-                            TaskListController.updateTaskLists(id, name);
+                            //TaskListController.updateTaskLists(id, name);
                             break;
                         case 3:
                             System.out.print("Quer adicionar uma tarefa a que lista ?: ");
                             id = scanner.nextInt();
                             System.out.print("Qual a descriçao da tarefa?: ");
                             name = scanner.next();
-                            TaskController.insertTasks(id, name);
+                            //TaskController.insertTasks(id, name);
                             break;
                         case 4:
                             System.out.print("Quer apagar que lista ?: ");
                             id = scanner.nextInt();
-                            TaskListController.deleteTaskLists(id);
+                            //TaskListController.deleteTaskLists(id);
                             break;
                         case 5:
                             System.out.println("Exit.");
@@ -109,26 +109,26 @@ public class CLI {
                         case 1:
                             System.out.print("Qual o id da tarefa que quer ver?: ");
                             int id = scanner.nextInt();
-                            TaskController.getTasks(id);
+                            //TaskController.getTasks(id);
                             break;
                         case 2:
                             System.out.print("Qual o id da tarefa que quer modificar?: ");
                             id = scanner.nextInt();
                             System.out.print("Qual o nome que quer por?: ");
                             String name = scanner.next();
-                            TaskController.updateNameTasks(id, name);
+                            //TaskController.updateNameTasks(id, name);
                             break;
                         case 3:
                             System.out.print("Qual o id da tarefa que quer modificar?: ");
                             id = scanner.nextInt();
                             System.out.print("Qual o status que quer por?: ");
                             name = scanner.next();
-                            TaskController.updateStatusTasks(id, name);
+                            //TaskController.updateStatusTasks(id, name);
                             break;
                         case 4:
                             System.out.print("Quer apagar que tarefa ?: ");
                             id = scanner.nextInt();
-                            TaskController.deleteTasks(id);
+                            //TaskController.deleteTasks(id);
                             break;
                         case 5:
                             System.out.println("Exit.");
