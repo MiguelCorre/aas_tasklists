@@ -23,18 +23,21 @@ The actions supported by the REST API are the follwing:
     DELETE - Remove task.
 ```
 # Stack
-Java version "11.0.4" 2019-07-16 LTS
-WildFly 18.0
-Maven 3.6.X
-Hibernate 5.4.X
-H2 Database
+- Java version "11.0.4" 2019-07-16 LTS
+- WildFly 18.0
+- Maven 3.6.X
+- Hibernate 5.4.X
+- H2 Database
+
 #Build and deployment
 To build the application
-
+```
 mvn package
+```
 The Maven action will produce a tasklists.war file in the target directory.
 
 ## Deployment using the WildFly Maven plugin
 With a running WildFly instance:
-
+```
 mvn wildfly:deploy
+```
