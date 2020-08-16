@@ -22,7 +22,7 @@ The actions supported by the REST API are the follwing:
     PUT - Change task description.
     DELETE - Remove task.
 ```
-# Stack
+# Technologies
 - Java version "11.0.4" 2019-07-16 LTS
 - WildFly 18.0
 - Maven 3.6.X
