@@ -29,7 +29,7 @@ The actions supported by the REST API are the follwing:
 - Hibernate 5.4.X
 - H2 Database
 
-#Build and deployment
+# Build and deployment
 To build the application
 ```
 mvn package
